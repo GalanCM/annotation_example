@@ -3,12 +3,12 @@
     {{text}}
 
     <svg
-      :height="Math.abs(targetY - startY)"
+      :height="Math.abs(targetY - startY) + 10"
       :width="Math.abs(targetX - startX)"
-      :style="{ left: startX + 'px', top: startY + 'px', transform: flip }"
+      :style="{ left: startX + 'px', top: startY - 5 + 'px', transform: flip }"
     >
-      <line x1="0" y1="0" :x2="Math.abs(targetX - startX)" :y2="Math.abs(targetY - startY)" stroke="white"/>
-      <line x1="0" y1="0" :x2="Math.abs(targetX - startX)" :y2="Math.abs(targetY - startY)"/>
+      <line x1="0" y1="5" :x2="Math.abs(targetX - startX)" :y2="Math.abs(targetY - startY) + 5" stroke="white"/>
+      <line x1="0" y1="5" :x2="Math.abs(targetX - startX)" :y2="Math.abs(targetY - startY) + 5"/>
     </svg>
     <i class="fas fa-map-marker-alt pin" :style="{ left: targetX + 'px', top: targetY + 'px' }"></i>
   </caption>
@@ -47,7 +47,7 @@ caption {
 
 svg {
   position: absolute;
-  transform-origin: 0 0;
+  transform-origin: 0 5px;
 
   line {
     stroke: black;
