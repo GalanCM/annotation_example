@@ -1,55 +1,59 @@
 <template>
-  <div class="viewer">
-    <section class="modal">
-      <nav>
-        <button>
-          <i class="fas fa-chevron-left"></i>
-        </button>
-        <span>
-          Sample #1
-        </span>
-        <button>
-          <i class="fas fa-chevron-right"></i>
-        </button>
-        <slot name="header"></slot>
-        <button class="close">
-          <i class="fas fa-times"></i>
-        </button>
-      </nav>
-      <main>
-        <aside class="sidebar">
-          <Annotation 
-            v-for="(annotation, index) in leftAnnotations" 
-            :key="index"
-            :text="annotation.text"
-            :pin-x="annotation.pinX" 
-            :pin-y="annotation.pinY" 
-            :image-rect="imageRect"
-            :color="index % 2 === 0 ? 'red' : 'green'"
-          ></Annotation>
-        </aside>
-        <slot></slot>
-        <aside class="sidebar">
-          <Annotation 
-            v-for="(annotation, index) in annotations.filter((annotation) => annotation.pinX >= 0.5)" 
-            :key="index"
-            :text="annotation.text"
-            :pin-x="annotation.pinX"
-            :pin-y="annotation.pinY"
-            :image-rect="imageRect"
-            :color="index % 2 === 0 ? 'red' : 'green'"
-          ></Annotation>
-        </aside>
-      </main>
-    </section>
+  <div class="page">
+    <Home></Home>
+    <div class="viewer">
+      <section class="modal">
+        <nav>
+          <button>
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <span>
+            Sample #1
+          </span>
+          <button>
+            <i class="fas fa-chevron-right"></i>
+          </button>
+          <slot name="header"></slot>
+          <button class="close">
+            <i class="fas fa-times"></i>
+          </button>
+        </nav>
+        <main>
+          <aside class="sidebar">
+            <Annotation 
+              v-for="(annotation, index) in leftAnnotations" 
+              :key="index"
+              :text="annotation.text"
+              :pin-x="annotation.pinX" 
+              :pin-y="annotation.pinY" 
+              :image-rect="imageRect"
+              :color="index % 2 === 0 ? 'red' : 'green'"
+            ></Annotation>
+          </aside>
+          <slot></slot>
+          <aside class="sidebar">
+            <Annotation 
+              v-for="(annotation, index) in annotations.filter((annotation) => annotation.pinX >= 0.5)" 
+              :key="index"
+              :text="annotation.text"
+              :pin-x="annotation.pinX"
+              :pin-y="annotation.pinY"
+              :image-rect="imageRect"
+              :color="index % 2 === 0 ? 'red' : 'green'"
+            ></Annotation>
+          </aside>
+        </main>
+      </section>
+    </div>
   </div>
 </template>
 
 <style lang="less" scoped>
 .viewer {
   position: absolute;
+  top: 0;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -119,7 +123,7 @@ function sortAnnotations(a, b) {
 
 export default {
   name: "viewer",
-  components: { Annotation },
+  components: { Annotation, Home: () => import("@/views/Home.vue") },
   props: ["annotations", "imageRect"],
   computed: {
     leftAnnotations() {
