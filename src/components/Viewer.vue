@@ -25,6 +25,7 @@
             :pin-x="annotation.pinX" 
             :pin-y="annotation.pinY" 
             :image-rect="imageRect"
+            :color="index % 2 === 0 ? 'red' : 'green'"
           ></Annotation>
         </aside>
         <slot></slot>
@@ -33,9 +34,10 @@
             v-for="(annotation, index) in annotations.filter((annotation) => annotation.pinX >= 0.5)" 
             :key="index"
             :text="annotation.text"
-            :pin-x="annotation.pinX" 
-            :pin-y="annotation.pinY" 
+            :pin-x="annotation.pinX"
+            :pin-y="annotation.pinY"
             :image-rect="imageRect"
+            :color="index % 2 === 0 ? 'red' : 'green'"
           ></Annotation>
         </aside>
       </main>

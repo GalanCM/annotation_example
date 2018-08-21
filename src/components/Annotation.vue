@@ -1,5 +1,5 @@
 <template>
-  <caption class="detail-card">
+  <caption class="detail-card" :class=" 'color-' + color">
     {{text}}
 
     <svg
@@ -7,6 +7,7 @@
       :width="Math.abs(targetX - startX)"
       :style="{ left: startX + 'px', top: startY + 'px', transform: flip }"
     >
+      <line x1="0" y1="0" :x2="Math.abs(targetX - startX)" :y2="Math.abs(targetY - startY)" stroke="white"/>
       <line x1="0" y1="0" :x2="Math.abs(targetX - startX)" :y2="Math.abs(targetY - startY)"/>
     </svg>
     <i class="fas fa-map-marker-alt pin" :style="{ left: targetX + 'px', top: targetY + 'px' }"></i>
@@ -17,10 +18,31 @@
 caption {
   border: 2px solid rgb(0, 0, 0, 0.8);
   border-radius: 2px;
+
+  &.color-red {
+    border-color: red;
+    .pin {
+      color: red;
+    }
+    line {
+      stroke: red;
+    }
+  }
+  &.color-green {
+    border-color: lime;
+    .pin {
+      color: lime;
+    }
+    line {
+      stroke: lime;
+    }
+  }
 }
 .pin {
   position: absolute;
   transform: translate(-50%, -100%);
+  font-size: 14px;
+  text-shadow: -1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 svg {
@@ -30,8 +52,9 @@ svg {
   line {
     stroke: black;
     stroke-width: 2px;
-    stroke-dasharray: 6 4;
+    stroke-dasharray: 10 6;
     opacity: 0.4;
+    filter: drop-shadow(-1px 1px 2px rgba(0, 0, 0, 0.2));
   }
 }
 </style>
@@ -40,7 +63,7 @@ svg {
 <script>
 export default {
   name: "detail-card",
-  props: ["text", "pinX", "pinY", "imageRect"],
+  props: ["text", "pinX", "pinY", "imageRect", "color"],
   data() {
     return {
       rect: {
