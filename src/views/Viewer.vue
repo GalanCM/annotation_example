@@ -11,19 +11,19 @@
         <button>
           <i class="fas fa-chevron-right"></i>
         </button>
-        <header>
-          Flex Organizer
-        </header>
+        <slot name="header"></slot>
         <button class="close">
           <i class="fas fa-times"></i>
         </button>
       </nav>
       <main>
         <aside>
-          <DetailCard :pin-x="0.035" :pin-y="0.09" :image-rect="imageRect">Drag Handle</DetailCard>
+          <slot name="left"></slot>
         </aside>
-        <img src="@/assets/FuzzyPlanner.png" ref="annotatedImage">
-        <aside></aside>
+        <slot name="image"></slot>
+        <aside>
+          <slot name="right"></slot>
+        </aside>
       </main>
     </section>
   </div>
@@ -88,23 +88,7 @@ main {
 </style>
 
 <script>
-import DetailCard from "@/components/DetailCard.vue";
-
 export default {
-  name: "viewer",
-  components: { DetailCard },
-  data() {
-    return {
-      imageRect: new DOMRect()
-    };
-  },
-  mounted() {
-    let updateImageRect = () => {
-      this.imageRect = this.$refs.annotatedImage.getBoundingClientRect();
-    };
-    setTimeout(updateImageRect, 200);
-
-    window.addEventListener("resize", updateImageRect);
-  }
+  name: "viewer"
 };
 </script>
