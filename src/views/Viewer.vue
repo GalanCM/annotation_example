@@ -20,7 +20,7 @@
       </nav>
       <main>
         <aside>
-          <DetailCard :pin-x="0.035" :pin-y="0.06" :image-rect="imageRect">Drag Handle</DetailCard>
+          <DetailCard :pin-x="0.035" :pin-y="0.09" :image-rect="imageRect">Drag Handle</DetailCard>
         </aside>
         <img src="@/assets/FuzzyPlanner.png" ref="annotatedImage">
         <aside></aside>
@@ -95,14 +95,14 @@ export default {
   components: { DetailCard },
   data() {
     return {
-      imageRect: null
+      imageRect: new DOMRect()
     };
   },
   mounted() {
     let updateImageRect = () => {
       this.imageRect = this.$refs.annotatedImage.getBoundingClientRect();
     };
-    updateImageRect();
+    setTimeout(updateImageRect, 200);
 
     window.addEventListener("resize", updateImageRect);
   }
