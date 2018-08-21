@@ -6,9 +6,15 @@ export default {
   },
   mounted() {
     let updateImageRect = () => {
-      this.imageRect = this.$refs.annotatedImage.getBoundingClientRect();
+      this.imageRect = {
+        width: this.$refs.annotatedImage.offsetWidth,
+        height: this.$refs.annotatedImage.offsetHeight,
+        top: this.$refs.annotatedImage.offsetTop,
+        left: this.$refs.annotatedImage.offsetLeft
+      };
     };
-    setTimeout(updateImageRect, 200);
+
+    setTimeout(updateImageRect, 500);
 
     window.addEventListener("resize", updateImageRect);
   }

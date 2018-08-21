@@ -17,12 +17,26 @@
         </button>
       </nav>
       <main>
-        <aside>
-          <slot name="left"></slot>
+        <aside class="sidebar">
+          <Annotation 
+            v-for="(annotation, index) in leftAnnotations" 
+            :key="index"
+            :text="annotation.text"
+            :pin-x="annotation.pinX" 
+            :pin-y="annotation.pinY" 
+            :image-rect="imageRect"
+          ></Annotation>
         </aside>
-        <slot name="image"></slot>
-        <aside>
-          <slot name="right"></slot>
+        <slot></slot>
+        <aside class="sidebar">
+          <Annotation 
+            v-for="(annotation, index) in annotations.filter((annotation) => annotation.pinX >= 0.5)" 
+            :key="index"
+            :text="annotation.text"
+            :pin-x="annotation.pinX" 
+            :pin-y="annotation.pinY" 
+            :image-rect="imageRect"
+          ></Annotation>
         </aside>
       </main>
     </section>
@@ -76,19 +90,42 @@ main {
   display: flex;
   background-color: white;
 
-  aside {
-    min-width: 270px;
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+
+    & > * {
+      margin: 5px;
+      height: 100px;
+    }
   }
   img {
-    padding: 5px 10px;
     flex-grow: 1;
+    width: 100%;
     background-color: rgb(220, 220, 230);
   }
 }
 </style>
 
 <script>
+import Annotation from "@/components/Annotation.vue";
+
+function sortAnnotations(a, b) {
+  return a.pinY - b.pinY;
+}
+
 export default {
-  name: "viewer"
+  name: "viewer",
+  components: { Annotation },
+  props: ["annotations", "imageRect"],
+  computed: {
+    leftAnnotations() {
+      return this.annotations.filter((annotation) => annotation.pinX < 0.5).sort(sortAnnotations);
+    },
+    rightAnnotations() {
+      return this.annotations.filter((annotation) => annotation.pinX >= 0.5).sort(sortAnnotations);
+    }
+  }
 };
 </script>
