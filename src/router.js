@@ -15,7 +15,7 @@ export default new Router({
     {
       path: "/viewer",
       name: "viewer",
-      component: () => import("@/views/projects/Planner.vue")
+      component: () => import("@/views/Viewer.vue")
     }
   ]
 });

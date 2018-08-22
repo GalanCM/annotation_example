@@ -6,11 +6,12 @@
       :height="Math.abs(targetY - startY) + 10"
       :width="Math.abs(targetX - startX)"
       :style="{ left: startX + 'px', top: startY - 5 + 'px', transform: flip }"
+      v-show="imageRect.width > 0"
     >
       <line x1="0" y1="5" :x2="Math.abs(targetX - startX)" :y2="Math.abs(targetY - startY) + 5" stroke="white"/>
       <line x1="0" y1="5" :x2="Math.abs(targetX - startX)" :y2="Math.abs(targetY - startY) + 5"/>
     </svg>
-    <i class="fas fa-map-marker-alt pin" :style="{ left: targetX + 'px', top: targetY + 'px' }"></i>
+    <i class="fas fa-map-marker-alt pin" :style="{ left: targetX + 'px', top: targetY + 'px' }" v-show="imageRect.width > 0"></i>
   </caption>
 </template>
 
@@ -102,6 +103,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.rect.width);
     this.side = this.pinX < 0.5 ? "left" : "right";
 
     let updateRect = () => {
