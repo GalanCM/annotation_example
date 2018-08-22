@@ -1,25 +1,26 @@
 <template>
   <div class="page">
     <Home></Home>
-    <div class="viewer">
+    <div class="viewer" @keydown.esc="close">
       <section class="modal">
         <nav>
-          <button>
+          <button @click="pageLeft" :disabled="this.pageIndex <= 0">
             <i class="fas fa-chevron-left"></i>
           </button>
           <span>
-            Sample #1
+            Sample #{{pageIndex + 1}}
           </span>
-          <button>
+          <button @click="pageRight" :disabled="this.pageIndex >= this.pages.length - 1">
             <i class="fas fa-chevron-right"></i>
           </button>
           <header>{{ title }}</header>
-          <button class="close">
+          <button class="close" @click="close">
             <i class="fas fa-times"></i>
           </button>
         </nav>
         <main>
-          <planner-page @change-title="changeTitle"></planner-page>
+          <planner-page @change-title="changeTitle" v-if="pageName === 'planner'"></planner-page>
+          <case-study-page @change-title="changeTitle" v-if="pageName === 'caseStudy'"></case-study-page>
         </main>
       </section>
     </div>
@@ -72,17 +73,60 @@ nav {
 </style>
 
 <script>
-import PlannerPage from "@/components/viewer_pages/Planner.vue";
+import PlannerPage from "@/components/annotation_pages/Planner.vue";
+import CaseStudyPage from "@/components/annotation_pages/CaseStudy.vue";
+
+function keyEventListener(event) {
+  if (event.key === "Escape") {
+    this.close();
+  } else if (event.key === "ArrowLeft") {
+    this.pageLeft();
+  } else if (event.key === "ArrowRight") {
+    this.pageRight();
+  }
+}
 
 export default {
-  components: { Home: () => import("@/views/Home.vue"), PlannerPage },
+  components: {
+    Home: () => import("@/views/Home.vue"),
+    PlannerPage,
+    CaseStudyPage
+  },
   data() {
-    return { title: "" };
+    return {
+      title: "",
+      pageIndex: 0,
+      pages: ["planner", "caseStudy"]
+    };
+  },
+  computed: {
+    pageName() {
+      return this.pages[this.pageIndex];
+    }
+  },
+  mounted() {
+    keyEventListener = keyEventListener.bind(this);
+    window.addEventListener("keydown", keyEventListener);
+  },
+  beforeDestroy() {
+    window.removeEventListener("keydown", keyEventListener);
   },
   methods: {
     changeTitle(title) {
-      console.log("title");
       this.title = title;
+    },
+    pageLeft() {
+      if (this.pageIndex > 0) {
+        this.pageIndex -= 1;
+      }
+    },
+    pageRight() {
+      if (this.pageIndex < this.pages.length - 1) {
+        this.pageIndex += 1;
+      }
+    },
+    close() {
+      this.$router.push({ name: "home" });
     }
   }
 };

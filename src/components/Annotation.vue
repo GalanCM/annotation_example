@@ -103,7 +103,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.rect.width);
     this.side = this.pinX < 0.5 ? "left" : "right";
 
     let updateRect = () => {

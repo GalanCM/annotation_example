@@ -13,9 +13,13 @@ export default new Router({
       component: () => import("@/views/Home.vue")
     },
     {
-      path: "/viewer",
+      path: "/viewer/:pageId",
       name: "viewer",
       component: () => import("@/views/Viewer.vue")
+    },
+    {
+      path: "/viewer",
+      redirect: "/viewer/1"
     }
   ]
 });
