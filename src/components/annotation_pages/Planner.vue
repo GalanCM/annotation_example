@@ -4,34 +4,19 @@
 
 <script>
 import ViewerPage from "@/components/ViewerPage";
+import Pages from "@/pages.js";
+
+var page = Pages.find( page => page.name === "planner" );
 
 export default {
   components: { ViewerPage },
-  data() {
-    return {
-      title: "Flex Planner",
-      image: require("@/assets/FuzzyPlanner.png"),
-      annotations: [
-        {
-          text: "New Task",
-          pinX: 0.01,
-          pinY: 0.34
-        },
-        {
-          text: "Done",
-          pinX: 0.9735,
-          pinY: 0.085
-        },
-        {
-          text: "Drag Handle",
-          pinX: 0.03,
-          pinY: 0.09
-        }
-      ]
-    };
-  },
-  mounted() {
-    this.$emit("change-title", this.title);
+  computed: {
+    image() {
+      return page.contents.image;
+    },
+    annotations() {
+      return page.contents.annotations;
+    }
   }
 };
 </script>

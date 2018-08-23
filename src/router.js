@@ -1,7 +1,17 @@
 import Vue from "vue";
 import Router from "vue-router";
 
+import Pages from "@/pages.js";
+
 Vue.use(Router);
+
+let pages = Pages.map(page => {
+  return {
+    ...page,
+    path: page.name
+  };
+});
+pages.push({ path: "", redirect: pages[0].path });
 
 export default new Router({
   mode: "history",
@@ -13,13 +23,10 @@ export default new Router({
       component: () => import("@/views/Home.vue")
     },
     {
-      path: "/viewer/:pageId",
-      name: "viewer",
-      component: () => import("@/views/Viewer.vue")
-    },
-    {
       path: "/viewer",
-      redirect: "/viewer/1"
+      name: "viewer",
+      component: () => import("@/views/Viewer.vue"),
+      children: pages
     }
   ]
 });

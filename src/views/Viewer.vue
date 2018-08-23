@@ -4,13 +4,13 @@
     <div class="viewer" @keydown.esc="close">
       <section class="modal">
         <nav>
-          <button @click="pageLeft" :disabled="this.pageIndex <= 0">
+          <button @click="pageLeft" :disabled="pageIndex <= 0">
             <i class="fas fa-chevron-left"></i>
           </button>
           <span>
             Sample #{{pageIndex + 1}}
           </span>
-          <button @click="pageRight" :disabled="this.pageIndex >= this.pages.length - 1">
+          <button @click="pageRight" :disabled="pageIndex >= pageLastIndex">
             <i class="fas fa-chevron-right"></i>
           </button>
           <header>{{ title }}</header>
@@ -18,10 +18,7 @@
             <i class="fas fa-times"></i>
           </button>
         </nav>
-        <main>
-          <planner-page @change-title="changeTitle" v-if="pageName === 'planner'"></planner-page>
-          <case-study-page @change-title="changeTitle" v-if="pageName === 'caseStudy'"></case-study-page>
-        </main>
+        <router-view></router-view>
       </section>
     </div>
   </div>
@@ -73,8 +70,7 @@ nav {
 </style>
 
 <script>
-import PlannerPage from "@/components/annotation_pages/Planner.vue";
-import CaseStudyPage from "@/components/annotation_pages/CaseStudy.vue";
+import Pages from "@/pages.js"
 
 function keyEventListener(event) {
   if (event.key === "Escape") {
@@ -88,20 +84,20 @@ function keyEventListener(event) {
 
 export default {
   components: {
-    Home: () => import("@/views/Home.vue"),
-    PlannerPage,
-    CaseStudyPage
-  },
-  data() {
-    return {
-      title: "",
-      pageIndex: 0,
-      pages: ["planner", "caseStudy"]
-    };
+    Home: () => import("@/views/Home.vue")
   },
   computed: {
     pageName() {
-      return this.pages[this.pageIndex];
+      return this.$route.name;
+    },
+    pageIndex() {
+      return Pages.map( page => page.name ).indexOf(this.$route.name);
+    },
+    pageLastIndex() {
+      return Pages.length - 1
+    },
+    title() {
+      return Pages[this.pageIndex].title
     }
   },
   mounted() {
@@ -117,12 +113,12 @@ export default {
     },
     pageLeft() {
       if (this.pageIndex > 0) {
-        this.pageIndex -= 1;
+        this.$router.push({ name: Pages[this.pageIndex - 1].name });
       }
     },
     pageRight() {
-      if (this.pageIndex < this.pages.length - 1) {
-        this.pageIndex += 1;
+      if (this.pageIndex < this.pageLastIndex) {
+        this.$router.push({ name: Pages[this.pageIndex + 1].name });
       }
     },
     close() {
