@@ -70,7 +70,7 @@ nav {
 </style>
 
 <script>
-import Pages from "@/pages.js"
+import Pages from "@/pages.js";
 
 function keyEventListener(event) {
   if (event.key === "Escape") {
@@ -91,13 +91,13 @@ export default {
       return this.$route.name;
     },
     pageIndex() {
-      return Pages.map( page => page.name ).indexOf(this.$route.name);
+      return Pages.map(page => page.name).indexOf(this.$route.name);
     },
     pageLastIndex() {
-      return Pages.length - 1
+      return Pages.length - 1;
     },
     title() {
-      return Pages[this.pageIndex].title
+      return Pages[this.pageIndex].title;
     }
   },
   mounted() {

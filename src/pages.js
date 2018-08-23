@@ -8,7 +8,7 @@ export default [
     component: () => import("@/components/annotation_pages/Planner.vue"),
     title: "Flex Planner",
     contents: {
-      image: require("@/assets/FuzzyPlanner.png"),
+      image: () => import("@/assets/FuzzyPlanner.png"),
       annotations: [
         {
           text: "New Task",
@@ -33,7 +33,7 @@ export default [
     component: () => import("@/components/annotation_pages/CaseStudy.vue"),
     title: "Case Studies (from my portfolio site)",
     contents: {
-      image: require("@/assets/CaseStudy.png"),
+      image: () => import("@/assets/CaseStudy.png"),
       annotations: [
         {
           text: "New Task",

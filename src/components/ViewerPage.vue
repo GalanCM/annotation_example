@@ -67,10 +67,14 @@ export default {
   },
   computed: {
     leftAnnotations() {
-      return this.annotations.filter((annotation) => annotation.pinX < 0.5).sort(sortAnnotations);
+      return this.annotations
+        .filter(annotation => annotation.pinX < 0.5)
+        .sort(sortAnnotations);
     },
     rightAnnotations() {
-      return this.annotations.filter((annotation) => annotation.pinX >= 0.5).sort(sortAnnotations);
+      return this.annotations
+        .filter(annotation => annotation.pinX >= 0.5)
+        .sort(sortAnnotations);
     }
   },
   mounted() {
