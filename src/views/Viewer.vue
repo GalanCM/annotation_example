@@ -14,6 +14,11 @@
             <i class="fas fa-chevron-right"></i>
           </button>
           <header>{{ title }}</header>
+          <span class="links" v-if="url !== ''">
+            <a :href="url">Site</a>
+            | 
+            <a :href="repository">Code</a>
+          </span>
           <button class="close" @click="close">
             <i class="fas fa-times"></i>
           </button>
@@ -48,6 +53,7 @@ nav {
   background-color: rgb(230, 230, 240);
   height: 40px;
   padding: 5px;
+  font-weight: 600;
 
   > * {
     display: inline-block;
@@ -63,14 +69,27 @@ nav {
   }
   header {
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 700;
     flex-grow: 1;
+  }
+
+  .links {
+    padding: 3px 5px;
+    font-size: 20px;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: -1px 1px 3px rgba(0, 0, 0, 0.2) inset;
+
+    a {
+      text-decoration: none;
+      font-weight: 700;
+    }
   }
 }
 </style>
 
 <script>
-import Pages from "@/pages.js"
+import Pages from "@/pages.js";
 
 function keyEventListener(event) {
   if (event.key === "Escape") {
@@ -91,13 +110,19 @@ export default {
       return this.$route.name;
     },
     pageIndex() {
-      return Pages.map( page => page.name ).indexOf(this.$route.name);
+      return Pages.map(page => page.name).indexOf(this.$route.name);
     },
     pageLastIndex() {
-      return Pages.length - 1
+      return Pages.length - 1;
     },
     title() {
-      return Pages[this.pageIndex].title
+      return Pages[this.pageIndex].title;
+    },
+    url() {
+      return Pages[this.pageIndex].url;
+    },
+    repository() {
+      return Pages[this.pageIndex].repository;
     }
   },
   mounted() {

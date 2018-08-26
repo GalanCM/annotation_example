@@ -6,7 +6,7 @@
 import ViewerPage from "@/components/ViewerPage";
 import Pages from "@/pages.js";
 
-var page = Pages.find(page => page.name === "planner");
+var page = Pages.find(page => page.name === "getloaded-mobile");
 
 export default {
   components: { ViewerPage },
