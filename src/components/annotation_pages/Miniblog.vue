@@ -1,5 +1,5 @@
 <template>
-  <viewer-page :image="image" :description="description" :annotations="annotations"></viewer-page>
+  <viewer-page :image="image" :description="description" :annotations="annotations" :url="url" :repository="repository"></viewer-page>
 </template>
 
 <script>
@@ -19,6 +19,12 @@ export default {
     },
     annotations() {
       return page.contents.annotations;
+    },
+    url() {
+      return page.url;
+    },
+    repository() {
+      return page.repository;
     }
   }
 };

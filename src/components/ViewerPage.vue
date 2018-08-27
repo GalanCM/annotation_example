@@ -1,5 +1,10 @@
 <template>
   <article class="page">
+    <span class="links" v-if="url !== ''">
+      <a :href="url">Website</a>
+      | 
+      <a :href="repository">Code</a>
+    </span>
     <summary class="description" v-html="paragraphs( escape(description) )"></summary>
     <aside class="sidebar left">
       <annotation 
@@ -35,10 +40,21 @@
   grid-template-columns: 300px auto 300px;
   background-color: white;
 
+  .links {
+    margin: 15px 50px 0;
+    font-size: 20px;
+    background-color: white;
+
+    a {
+      text-decoration: none;
+      font-weight: 700;
+    }
+  }
+
   .description {
     grid-column: ~"1 / 4";
     display: flex;
-    padding: 10px 25px;
+    padding: 10px 25px 10px;
     line-height: 1.5;
   }
 
@@ -72,7 +88,7 @@
 .description > p {
   /* for dynamically generated content */
   flex: 1;
-  margin: 25px;
+  margin: 0 25px 25px;
 }
 </style>
 
@@ -86,7 +102,7 @@ function sortAnnotations(a, b) {
 export default {
   name: "viewer",
   components: { Annotation },
-  props: ["image", "description", "annotations"],
+  props: ["image", "description", "annotations", "url", "repository"],
   data() {
     return {
       imageRect: new DOMRect()

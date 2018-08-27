@@ -14,11 +14,6 @@
             <i class="fas fa-chevron-right"></i>
           </button>
           <header>{{ title }}</header>
-          <span class="links" v-if="url !== ''">
-            <a :href="url">Site</a>
-            | 
-            <a :href="repository">Code</a>
-          </span>
           <button class="close" @click="close">
             <i class="fas fa-times"></i>
           </button>
@@ -71,19 +66,6 @@ nav {
     font-size: 20px;
     font-weight: 700;
     flex-grow: 1;
-  }
-
-  .links {
-    padding: 3px 5px;
-    font-size: 20px;
-    background-color: white;
-    border-radius: 4px;
-    box-shadow: -1px 1px 3px rgba(0, 0, 0, 0.2) inset;
-
-    a {
-      text-decoration: none;
-      font-weight: 700;
-    }
   }
 }
 </style>
