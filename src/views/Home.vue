@@ -9,17 +9,18 @@
       <p>
         You mentioned in the job description that the perfect candidate would enjoy challenges such as the 
         <a href="https://baymard.com/checkout-usability/benchmark/step-type/cart/3176-ikea-step-1">example page</a> 
-        you provided. Well, when I saw that, I immediately though, "I <em>would</em> enjoy that." So I made my own version in Vue.
+        you provided. So I made my own version in Vue, and used it to showcase some of my past projects.
       </p>
       <p>
-        I've included annotations for several past projects. Since annotated images are …less-than-ideal for discussing code, the carousel will focus on design aspects of the projects, with some code discussion. But this is a coding job first and formost, so please <a href="https://github.com/GalanCM/annotation_example">check out the code on Github</a>.
-
+        Since annotated images are a… less-than-ideal format for discussing code, the carousel will focus on design aspects of the projects. 
+        But this is a coding job first and foremost, so please <a href="https://github.com/GalanCM/annotation_example">check out the code on Github</a>.
       </p>
 
       <router-link to="viewer" tag="button">Get Started</router-link>
       
       <p>
-        It's still just a prototype, but it does three of <a href="" @click.prevent="showRequirements = !showRequirements">the four things that you asked for</a>{{ showRequirements ? ':' : '.' }}
+        It's still just a prototype, but it does meet three of 
+        <a href="" @click.prevent="showRequirements = !showRequirements">your four requirements</a>{{ showRequirements ? ':' : '.' }}
       </p>
       <ul class="requirements" v-show="showRequirements">
         <li>
@@ -36,7 +37,9 @@
         </li>
       </ul>
       <p>
-        Prefetching the carousel pages proved to be a biggest challenge, since the images are the biggest part of those pages, and Webpack prefers to not bundle them. I attempted to solve this by loading each image individually on carousel load, but it was hacky: you can see the code on <a href="https://github.com/GalanCM/annotation_example/tree/prefetch-carousel">this branch</a>. I have a few ideas of how to make this work, but they would take a good bit of work, and I don't have the time right now. Please question me on it, though.
+        Prefetching the carousel pages proved to be a biggest challenge. 
+        I made an attempt to solve this but I wasn't happy with the results: you can see the code on <a href="https://github.com/GalanCM/annotation_example/tree/prefetch-carousel">this branch</a>. 
+        I do have a few ideas of how to make it work, but unfortunately didn't have the time to implement any of them. Please question me on it, though.
       </p>
       <p>
         Hopefully I've caught your attention, and if you want to learn more about me, I've included a couple of links below.
